@@ -11,7 +11,9 @@ import pygetwindow as pg
 
 def checkIsRunning():
     global flag
-
+    
+    # figuring out a solution so I can only check for the first word when getActiveWindowTitle() is called
+    # change "Minecraft* (version hidden from driver)" according to your needs for the time being
     if (pg.getActiveWindowTitle() == "Minecraft* (version hidden from driver)" or pg.getActiveWindowTitle() == "Minecraft* (version hidden from driver) - Singleplayer"):
         flag = 1
         # print("Window is active")
