@@ -4,11 +4,19 @@ Once ran, this Python script is always active unless you terminate the script or
 
 I originally had this idea programmed in the LUA scripting language to work with my Logitech G-502 mouse, but I wanted to expand compatibility to my non-Logitech keyboard.
 
+# Compatibility
+
+This script works for the following operating system(s):
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Cropped-Windows10-icon.png" width=75px>
+
+<br>
+
 # Modules Used 
 
 - ```mouse```: receives mouse inputs, emulates mouse inputs, receives cursor position, and sets cursor position
 - ```keyboard```: receives keyboard inputs and emulates keyboard inputs
-- ```pygetwindow```: for this script, allows to access Windows processes and know what Window is active
+- ```pygetwindow```: for this script, allows the script to access Windows processes and know what Window is active
 
 Built-in Python Libraries:
 
