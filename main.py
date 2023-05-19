@@ -4,6 +4,7 @@ import keyboard
 import mouse
 import time
     
+# emulates shift clicking inventory slots
 def shiftClick():
     keyboard.press('left shift')
     mouse.click("left")
@@ -32,4 +33,3 @@ while True:
 
     if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
         break
-    
