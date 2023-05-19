@@ -8,6 +8,7 @@ I originally had this idea programmed in the LUA scripting language to work with
 
 - ```mouse```: receives mouse inputs, emulates mouse inputs, receives cursor position, and sets cursor position
 - ```keyboard```: receives keyboard inputs and emulates keyboard inputs
+- ```pygetwindow```: for this script, allows to access Windows processes and know what Window is active
 
 Built-in Python Libraries:
 
