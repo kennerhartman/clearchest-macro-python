@@ -7,9 +7,10 @@
 import keyboard
 import mouse
 import time
-import pygetwindow as pg
+import pygetwindow as gw
 
 byPassNone = 0
+timesToLoop = int(3)
 
 def checkIsRunning():
     global flag
@@ -24,7 +25,7 @@ def checkIsRunning():
     # 4(a): because my game has an * in its title, I made an 'if statement' to detect if there is one (line 39)
     # 4(b): find the index of the * and remove it (line 40-41)
 
-    minecraftWindow = pg.getActiveWindowTitle()
+    minecraftWindow = gw.getActiveWindowTitle()
 
     if(minecraftWindow is None and byPassNone != -1):
         pass
@@ -46,7 +47,18 @@ def checkIsRunning():
     else:
         flag = 0
         # print("Minecraft window is not active")
-        
+
+def changeY(): 
+    global timesToLoop
+    
+    try:
+        timesToLoop = int(input('How many lines in the chest/shulker do you want to clear (Default: 3): '))
+    except:
+        print("\nYou entered a string, not a number! Please try again using 'L Ctrl + L Shift + a'\n")
+
+    if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
+        exit()
+
 # emulates shift clicking inventory slots
 def shiftClick():
     keyboard.press('left shift')
@@ -65,7 +77,7 @@ def runScript():
     if keyboard.is_pressed('left shift') and keyboard.is_pressed('b'): 
         x, y = mouse.get_position()
 
-        for i in range(0, 3):
+        for i in range(0, timesToLoop):
             clearChest(x, y)
             y += 70
 
@@ -75,7 +87,7 @@ def runScript():
         clearChest(x, y)
 
 if __name__ == "__main__":
-    print("The script is currently running.  Press 'Left Shift + ESC' to close the script.")
+    print("The script is currently running.  Press 'Left Shift + ESC' to exit the script.")
 
     while True:
         checkIsRunning()
@@ -84,6 +96,20 @@ if __name__ == "__main__":
         if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
             break
 
+        # shortcut to change how many lines in a chest/shulker you clear
+        # this code is here so it works even if you are outside of Minecraft
+        if keyboard.is_pressed('left control') and keyboard.is_pressed('left shift') and keyboard.is_pressed('a'): 
+                changeY()
+
         while(flag == 1): 
+            # shortcut to change how many lines in a chest/shulker you clear; 
+            # will not work in Minecraft if this is not here
+            if keyboard.is_pressed('left control') and keyboard.is_pressed('left shift') and keyboard.is_pressed('a'): 
+                changeY()
+
+            # this line of code needs to be here to exit the script while the Minecraft window is active
+            if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
+                break
+
             checkIsRunning()
             runScript()
