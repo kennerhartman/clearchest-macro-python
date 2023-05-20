@@ -9,19 +9,46 @@ import mouse
 import time
 import pygetwindow as pg
 
+time.sleep(3)
+
+byPassNone = 0
+
 def checkIsRunning():
     global flag
+    global byPassNone
+
+    # these next few lines of code will: 
+    # 1(a): get the ActiveWindowTitle, (line 29)
+    # 1(b): check if there is no window selected [if there is no window selected and I split an empty string, the script will crash] (line 31)
+    # else, change 'byPassNone' to '-1' to stop the script from checking if there is no active window (line 34)
+    # 2: put each word of the ActiveWindowTitle into a list, (line 36)
+    # 3: store the first index of the list into a string and forget the rest (line 37)
+    # 4(a): because my game has an * in its title, I made an 'if statement' to detect if there is one (line 39)
+    # 4(b): find the index of the * and remove it (line 40-41)
+
+    minecraftWindow = pg.getActiveWindowTitle()
+
+    if(minecraftWindow is None and byPassNone != -1):
+        pass
+    elif(minecraftWindow): # I don't even know what is happening at this point, but it works; script will crash if it is an 'else' statement!!!
+        byPassNone = -1
+
+        minecraftWindow = minecraftWindow.split()
+        minecraftWindow = minecraftWindow[0]
+
+        if("*" in minecraftWindow):
+            indexOfChar = minecraftWindow.index("*")
+            minecraftWindow = minecraftWindow[:indexOfChar] + minecraftWindow[indexOfChar + 1:]
     
-    # figuring out a solution so I can only check for the first word when getActiveWindowTitle() is called
-    # change "Minecraft* (version hidden from driver)" according to your needs for the time being
-    if (pg.getActiveWindowTitle() == "Minecraft* (version hidden from driver)" or pg.getActiveWindowTitle() == "Minecraft* (version hidden from driver) - Singleplayer"):
+    # check if active window is equal to "Minecraft".  if so, 'flag' is set to '1' and the macro can run if the right keys are pressed
+
+    if (minecraftWindow == "Minecraft"):
         flag = 1
-        # print("Window is active")
+        # print("Minecraft window is active")
     else:
         flag = 0
-        # print("Window is not active")
+        # print("Minecraft window is not active")
         
-
 # emulates shift clicking inventory slots
 def shiftClick():
     keyboard.press('left shift')
@@ -49,16 +76,17 @@ def runScript():
 
         clearChest(x, y)
 
-while True:
-    checkIsRunning()
-    time.sleep(1/1000)
+if __name__ == "__main__":
+    while True:
+        checkIsRunning()
+        time.sleep(1/1000)
 
-    if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
-        break
-
-    while(flag == 1): 
         if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
             break
 
-        checkIsRunning()
-        runScript()
+        while(flag == 1): 
+            if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
+                break
+
+            checkIsRunning()
+            runScript()
