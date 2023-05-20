@@ -9,8 +9,6 @@ import mouse
 import time
 import pygetwindow as pg
 
-time.sleep(3)
-
 byPassNone = 0
 
 def checkIsRunning():
@@ -77,6 +75,8 @@ def runScript():
         clearChest(x, y)
 
 if __name__ == "__main__":
+    print("The script is currently running.  Press 'Left Shift + ESC' to close the script.")
+
     while True:
         checkIsRunning()
         time.sleep(1/1000)
@@ -85,8 +85,5 @@ if __name__ == "__main__":
             break
 
         while(flag == 1): 
-            if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
-                break
-
             checkIsRunning()
             runScript()
