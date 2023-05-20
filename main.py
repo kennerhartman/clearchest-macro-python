@@ -8,9 +8,23 @@ import keyboard
 import mouse
 import time
 import pygetwindow as gw
+import json
+import os
+
+filename = "config.json"
+isFile = os.path.isfile(filename)
+
+if(not isFile):
+    print("\nA 'config.json' file has been created. By default, this script will clear 3 lines from the inventory of a chest/shulker.\n"
+          "To change this, press 'L CTRL + L SHIFT + a' at the same time.\n")
+    with open(filename, 'w') as f:
+        json.dump({"userPref": 3}, f)
+
+with open('config.json', 'r') as f:
+    settings = json.load(f)
 
 byPassNone = 0
-timesToLoop = int(3)
+timesToLoop = settings['userPref']
 
 def checkIsRunning():
     global flag
@@ -50,11 +64,16 @@ def checkIsRunning():
 
 def changeY(): 
     global timesToLoop
-    
+
     try:
-        timesToLoop = int(input('How many lines in the chest/shulker do you want to clear (Default: 3): '))
+        timesToLoop = int(input('How many lines in the chest/shulker do you want to clear (Default: 3, unless changed): '))
     except:
         print("\nYou entered a string, not a number! Please try again using 'L Ctrl + L Shift + a'\n")
+    
+    settings['userPref'] = timesToLoop
+    with open('config.json', 'w') as f:
+        json.dump(settings, f)
+    f.close()
 
     if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
         exit()
@@ -87,7 +106,7 @@ def runScript():
         clearChest(x, y)
 
 if __name__ == "__main__":
-    print("The script is currently running.  Press 'Left Shift + ESC' to exit the script.")
+    print("The script is currently running.  Press 'Left Shift + ESC' to exit the script.\n")
 
     while True:
         checkIsRunning()
