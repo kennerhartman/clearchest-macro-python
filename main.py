@@ -7,60 +7,21 @@
 import keyboard
 import mouse
 import time
-import pygetwindow as gw
-import json
-import os
 
-filename = "config.json"
-isFile = os.path.isfile(filename)
+from resources import Config
+from resources import ActiveWindow
 
-if(not isFile):
-    print("\nA 'config.json' file has been created. By default, this script will clear 3 lines from the inventory of a chest/shulker.\n"
-          "To change this, press 'L CTRL + L SHIFT + a' at the same time.\n")
-    with open(filename, 'w') as f:
-        json.dump({"userPref": 3}, f)
+# config file related code
 
-with open('config.json', 'r') as f:
-    settings = json.load(f)
+data = {"userPref": 3}
+Config.createConfig(data)
+settings = Config.readConfig()
 
-byPassNone = 0
-timesToLoop = settings['userPref']
+# main part of the script
 
-def checkIsRunning():
-    global flag
-    global byPassNone
-
-    # these next few lines of code will: 
-    # 1(a): get the ActiveWindowTitle, (line 29)
-    # 1(b): check if there is no window selected [if there is no window selected and I split an empty string, the script will crash] (line 31)
-    # else, change 'byPassNone' to '-1' to stop the script from checking if there is no active window (line 34)
-    # 2: put each word of the ActiveWindowTitle into a list, (line 36)
-    # 3: store the first index of the list into a string and forget the rest (line 37)
-    # 4(a): because my game has an * in its title, I made an 'if statement' to detect if there is one (line 39)
-    # 4(b): find the index of the * and remove it (line 40-41)
-
-    minecraftWindow = gw.getActiveWindowTitle()
-
-    if(minecraftWindow is None and byPassNone != -1):
-        pass
-    elif(minecraftWindow): # I don't even know what is happening at this point, but it works; script will crash if it is an 'else' statement!!!
-        byPassNone = -1
-
-        minecraftWindow = minecraftWindow.split()
-        minecraftWindow = minecraftWindow[0]
-
-        if("*" in minecraftWindow):
-            indexOfChar = minecraftWindow.index("*")
-            minecraftWindow = minecraftWindow[:indexOfChar] + minecraftWindow[indexOfChar + 1:]
-    
-    # check if active window is equal to "Minecraft".  if so, 'flag' is set to '1' and the macro can run if the right keys are pressed
-
-    if (minecraftWindow == "Minecraft"):
-        flag = 1
-        # print("Minecraft window is active")
-    else:
-        flag = 0
-        # print("Minecraft window is not active")
+# default times to loop through 'clearChest()' is 3; 
+# will change to whatever is in the 'config.json' 'userPref'
+timesToLoop = 3
 
 def changeY(): 
     global timesToLoop
@@ -71,9 +32,7 @@ def changeY():
         print("\nYou entered a string, not a number! Please try again using 'L Ctrl + L Shift + a'\n")
     
     settings['userPref'] = timesToLoop
-    with open('config.json', 'w') as f:
-        json.dump(settings, f)
-    f.close()
+    Config.writeToConfig(settings)
 
     if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
         exit()
@@ -109,7 +68,7 @@ if __name__ == "__main__":
     print("The script is currently running.  Press 'Left Shift + ESC' to exit the script.\n")
 
     while True:
-        checkIsRunning()
+        ActiveWindow.checkActiveWindow()
         time.sleep(1/1000)
 
         if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
@@ -120,9 +79,10 @@ if __name__ == "__main__":
         if keyboard.is_pressed('left control') and keyboard.is_pressed('left shift') and keyboard.is_pressed('a'): 
                 changeY()
 
-        while(flag == 1): 
+        while(ActiveWindow.checkActiveWindow() == 1): 
             # shortcut to change how many lines in a chest/shulker you clear; 
             # will not work in Minecraft if this is not here
+
             if keyboard.is_pressed('left control') and keyboard.is_pressed('left shift') and keyboard.is_pressed('a'): 
                 changeY()
 
@@ -130,5 +90,5 @@ if __name__ == "__main__":
             if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
                 break
 
-            checkIsRunning()
+            ActiveWindow.checkActiveWindow()
             runScript()
