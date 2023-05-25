@@ -8,8 +8,8 @@ import keyboard
 import mouse
 import time
 
-from resources import Config
-from resources import ActiveWindow
+from mypackages import Config
+from mypackages import ActiveWindow
 
 # config file related code
 
@@ -52,7 +52,7 @@ def clearChest(x, y):
         time.sleep(25/1000) # DO NOT DECREASE VALUE UNLESS YOU WANT TO BREAK YOUR CURSOR AND HAVE YOUR LIFE RUINED!!!
     
 def runScript():
-    if keyboard.is_pressed('left shift') and keyboard.is_pressed('b'): 
+    if keyboard.is_pressed('left shift') and keyboard.is_pressed('b'):
         x, y = mouse.get_position()
 
         for i in range(0, timesToLoop):
@@ -67,19 +67,20 @@ def runScript():
 if __name__ == "__main__":
     print("The script is currently running.  Press 'Left Shift + ESC' to exit the script.\n")
 
-    while True:
-        ActiveWindow.checkActiveWindow()
+    while True:  
         time.sleep(1/1000)
+
+        ActiveWindow.checkActiveWindow("Discord")
 
         if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
             break
 
         # shortcut to change how many lines in a chest/shulker you clear
-        # this code is here so it works even if you are outside of Minecraft
+        # this code is here so it works even if you are outside of MinecraftB
         if keyboard.is_pressed('left control') and keyboard.is_pressed('left shift') and keyboard.is_pressed('a'): 
                 changeY()
 
-        while(ActiveWindow.checkActiveWindow() == 1): 
+        while(ActiveWindow.checkActiveWindow("Minecraft")): 
             # shortcut to change how many lines in a chest/shulker you clear; 
             # will not work in Minecraft if this is not here
 
@@ -90,5 +91,4 @@ if __name__ == "__main__":
             if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
                 break
 
-            ActiveWindow.checkActiveWindow()
             runScript()
