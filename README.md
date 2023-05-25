@@ -29,6 +29,7 @@ Built-in Python Libraries:
 - ```time```: suspend script execution
 - ```json```: read and write to json files
 - ```os```: used to create a ```config.json``` file and append data, if not present
+- ```re```: used to check Window titles and easily split the titles to get the value I desire to get
 
 # License
 
