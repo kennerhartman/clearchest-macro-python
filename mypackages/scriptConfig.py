@@ -16,14 +16,14 @@ class Config:
 
         if(not isFile):
             with open(filename, 'w') as f:
-                json.dump(data, f)
+                json.dump(data, f, indent = 4)
             print("\nA 'config.json' file has been created. By default, this script will clear 3 lines from the inventory of a chest/shulker.\n"
                 "To change this, press 'L CTRL + L SHIFT + a' at the same time.\n")
 
     # read 'config.json'
     def readConfig():
         with open('config.json', 'r') as f:
-             settings = json.load(f)
+            settings = json.load(f)
         f.close()
 
         return settings
@@ -31,5 +31,5 @@ class Config:
     # write/override object data in 'config.json'
     def writeToConfig(settings):
         with open('config.json', 'w') as f:
-            json.dump(settings, f)
+            json.dump(settings, f, indent = 4)
         f.close()

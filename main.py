@@ -13,7 +13,7 @@ from mypackages import ActiveWindow
 
 # config file related code
 
-data = {"userPref": 3}
+data = {"userPref": 3, "backgroundColor": "System"}
 Config.createConfig(data)
 settings = Config.readConfig()
 
