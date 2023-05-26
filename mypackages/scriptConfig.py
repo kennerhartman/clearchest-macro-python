@@ -11,7 +11,7 @@ class Config:
     # when called, if a 'config.json' file is not present, then one will be created, 
     # with object(s) passed in as a parameter (named data)
     def createConfig(data):
-        filename = "config.json"
+        filename = "json/config.json"
         isFile = os.path.isfile(filename)
 
         if(not isFile):
@@ -22,7 +22,7 @@ class Config:
 
     # read 'config.json'
     def readConfig():
-        with open('config.json', 'r') as f:
+        with open('json/config.json', 'r') as f:
             settings = json.load(f)
         f.close()
 
@@ -30,6 +30,6 @@ class Config:
 
     # write/override object data in 'config.json'
     def writeToConfig(settings):
-        with open('config.json', 'w') as f:
+        with open('json/config.json', 'w') as f:
             json.dump(settings, f, indent = 4)
         f.close()

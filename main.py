@@ -31,8 +31,11 @@ def changeY():
     except:
         print("\nYou entered a string, not a number! Please try again using 'L Ctrl + L Shift + a'\n")
     
-    settings['userPref'] = timesToLoop
-    Config.writeToConfig(settings)
+    if(timesToLoop > 10 or timesToLoop < 0):
+        print("\nPlease enter a number less than or equal to 10!\n")
+    else:
+        settings['userPref'] = timesToLoop
+        Config.writeToConfig(settings)
 
     if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
         exit()
