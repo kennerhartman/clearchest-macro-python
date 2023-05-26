@@ -23,6 +23,7 @@ This script works for the following operating system(s):
 - [```mouse```](https://pypi.org/project/mouse/): receives mouse inputs, emulates mouse inputs, receives cursor position, and sets cursor position
 - [```keyboard```](https://pypi.org/project/keyboard/): receives keyboard inputs and emulates keyboard inputs
 - [```pygetwindow```](https://pypi.org/project/PyGetWindow/): for this script, allows the script to access Windows processes and know what Window is active
+- [```customtkinter```](https://pypi.org/project/customtkinter/): creates a modern Python UI; a library based upon [```tkinter```](https://docs.python.org/3/library/tkinter.html)
 
 Built-in Python Libraries:
 
