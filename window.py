@@ -3,11 +3,9 @@
 # Licensed under the MIT license. See LICENSE.md file in the project root for details.
 #
 
-import time
 import customtkinter as ctk
 
 from mypackages import Config
-
 
 # window
 
@@ -115,7 +113,6 @@ def enter(event):
         notANumberLabel.grid(column=1, pady=15)
         notANumberLabel.after(3500, notANumberLabel.grid_forget)
         
-
     # delete entery and set the focus to the window, not the widget
 
     inputText = str(inputText)

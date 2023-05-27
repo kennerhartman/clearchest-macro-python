@@ -11,7 +11,6 @@ byPassTypeNone = 0
 class ActiveWindow:
     # get active window, change variable 'flag' found in main.py
     def checkActiveWindow(title):
-
         global byPassTypeNone
 
         # these next few lines of code will: 
@@ -41,9 +40,8 @@ class ActiveWindow:
 
                 # if ActiveWindow is "Minecraft"
                 if(windowTitle == "Minecraft"):
-                    return "Minecraft"
+                    return True
                 
                 # if I need to check for any Windows besides "Minecraft", manually append the following code:
                     # if(windowTitle == "[window name]"):
-                        # return [value]
-                
+                        # return True

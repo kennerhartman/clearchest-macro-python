@@ -7,13 +7,14 @@
 import keyboard
 import mouse
 import time
+import subprocess
 
 from mypackages import Config
 from mypackages import ActiveWindow
 
 # config file related code
 
-data = {"userPref": 3, "backgroundColor": "System"}
+data = {"userPref": 3, "CLI": True, "backgroundColor": "System"}
 Config.createConfig(data)
 settings = Config.readConfig()
 
@@ -26,16 +27,20 @@ timesToLoop = 3
 def changeY(): 
     global timesToLoop
 
-    try:
-        timesToLoop = int(input('How many lines in the chest/shulker do you want to clear (Default: 3, unless changed): '))
-    except:
-        print("\nYou entered a string, not a number! Please try again using 'L Ctrl + L Shift + a'\n")
-    
-    if(timesToLoop > 10 or timesToLoop < 0):
-        print("\nPlease enter a number less than or equal to 10!\n")
-    else:
-        settings['userPref'] = timesToLoop
-        Config.writeToConfig(settings)
+    if(settings['CLI'] == True):
+        try:
+            timesToLoop = int(input('How many lines in the chest/shulker do you want to clear (Default: 3, unless changed): '))
+        except:
+            print("\nYou entered a string, not a number! Please try again using 'L Ctrl + L Shift + a'\n")
+        
+        if(timesToLoop > 10 or timesToLoop < 0):
+            print("\nPlease enter a number less than or equal to 10!\n")
+        else:
+            settings['userPref'] = timesToLoop
+            Config.writeToConfig(settings)
+
+    elif(settings['CLI'] == False):
+        subprocess.call("window.py", shell=True)
 
     if keyboard.is_pressed('left shift') and keyboard.is_pressed('esc'):
         exit()
