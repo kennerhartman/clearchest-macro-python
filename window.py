@@ -107,7 +107,7 @@ def enter(event):
             Config.writeToConfig(settings)
 
             successLabel.grid(column=1, pady=15)
-            successLabel.after(3500, notANumberLabel.grid_forget)
+            successLabel.after(3500, successLabel.grid_forget)
     else:
         successLabel.grid_forget()
         inputTooBigLabel.grid_forget()
