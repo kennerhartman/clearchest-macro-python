@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/project%20status-shelved-red"></img>
+
 # Overview
 
 Once ran, this Python script is always active unless you terminate the script or press ```Shift + ESC```.  
